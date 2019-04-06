@@ -14,10 +14,12 @@ namespace Souls
 
 
         bool isMoveAble = false;
+        bool isUseLockOn = false;
 
         Vector2 input;
-        Vector3 velocity;
+        Vector2 lastNonZeroInputDir;
 
+        Vector3 velocity;
         Rigidbody rigid;
 
 
@@ -46,7 +48,7 @@ namespace Souls
 
         void LateUpdate()
         {
-            camera.ForceRotateTarget(input.magnitude > 0.2f);
+            CameraHandler();
         }
 
         void FixedUpdate()
@@ -75,17 +77,44 @@ namespace Souls
             input.y = Input.GetAxisRaw("Vertical");
 
             input = input.normalized;
+
+            lastNonZeroInputDir.x = (input.x > 0.0f || input.x < 0.0f) ? input.x : lastNonZeroInputDir.x;
+            lastNonZeroInputDir.y = (input.y > 0.0f || input.y < 0.0f) ? input.y : lastNonZeroInputDir.y;
+        }
+
+        void CameraHandler()
+        {
+            camera.ForceRotateTarget(input.magnitude > 0.2f);
+            camera.InvertForwardAxis(lastNonZeroInputDir.y < 0.0f);
         }
 
         void MovementHandler()
         {
-            if (!isMoveAble) {
+            if (!isMoveAble)
+            {
                 velocity = Vector3.zero;
                 rigid.velocity = velocity;
                 return;
             }
 
-            velocity = ((transform.forward * input.y) + (transform.right * input.x)).normalized * moveForce;
+            //Flip forward dir, make camera handle rotation
+            if (camera.CameraState == CameraController.State.Normal)
+            {
+                if (lastNonZeroInputDir.y < 0.0f)
+                {
+                    velocity = ((transform.forward * Mathf.Abs(input.y)) + (transform.right * (input.x * lastNonZeroInputDir.y))).normalized * moveForce;
+                }
+                else
+                {
+                    velocity = ((transform.forward * Mathf.Abs(input.y)) + (transform.right * input.x)).normalized * moveForce;
+                }
+            }
+            //Lock on camera will always make forward axis face its target, no need to flip dir
+            else if (camera.CameraState == CameraController.State.LockOn)
+            {
+                velocity = ((transform.forward * input.y) + (transform.right * input.x)).normalized * moveForce;
+            }
+
             rigid.AddForce(velocity, ForceMode.Force);
         }
 

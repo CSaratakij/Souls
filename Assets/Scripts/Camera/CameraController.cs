@@ -32,6 +32,16 @@ namespace Souls
         LayerMask cameraObstacleMask;
 
 
+        public State CameraState => state;
+
+        public enum State
+        {
+            Normal,
+            LockOn
+        }
+
+        State state;
+
         float minimumDistance;
         float maximumDistance;
         float currentDistance;
@@ -41,6 +51,7 @@ namespace Souls
 
         bool isCurrentHitObstacle;
         bool isPreviousHitObstacle;
+        bool isInvertForwardAxis;
 
         Vector2 mouseInput;
 
@@ -63,7 +74,7 @@ namespace Souls
 
         void Awake()
         {
-            minimumDistance = 2.0f;
+            minimumDistance = 1.0f;
             maximumDistance = Mathf.Abs(offset.z);
         }
 
@@ -156,11 +167,48 @@ namespace Souls
 
         void RotateTarget()
         {
-            var targetRotationAxis = rotationAxis;
-            targetRotationAxis.x = 0.0f;
+            switch (state)
+            {
+                case State.Normal:
+                    if (isInvertForwardAxis)
+                    {
+                        var lookDir = transform.forward * -1.0f;
+                        lookDir.y = 0.0f;
 
-            var targetRotation = Quaternion.Euler(targetRotationAxis);
-            target.rotation = Quaternion.Slerp(target.rotation, targetRotation, rotationClamp);
+                        var lookRotation = Quaternion.LookRotation(lookDir);
+                        target.rotation = Quaternion.Slerp(target.rotation, lookRotation, rotationClamp);
+                    }
+                    else
+                    {
+                        var targetRotationAxis = rotationAxis;
+                        targetRotationAxis.x = 0.0f;
+
+                        var targetRotation = Quaternion.Euler(targetRotationAxis);
+                        target.rotation = Quaternion.Slerp(target.rotation, targetRotation, rotationClamp);
+                    }
+                    break;
+
+                case State.LockOn:
+                    /* var targetRotationAxis = rotationAxis; */
+                    /* targetRotationAxis.x = 0.0f; */
+
+                    /* var targetRotation = Quaternion.Euler(targetRotationAxis); */
+                    /* target.rotation = Quaternion.Slerp(target.rotation, targetRotation, rotationClamp); */
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        public void ToggleState()
+        {
+            state = (state == State.Normal) ? State.LockOn : State.Normal;
+        }
+
+        public void InvertForwardAxis(bool value)
+        {
+            isInvertForwardAxis = value;
         }
 
         public void ForceRotateTarget(bool value)
