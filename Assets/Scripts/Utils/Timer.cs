@@ -61,6 +61,7 @@ namespace Souls
                     Reset();
 
                 IsStart = true;
+                OnTimeStart?.Invoke();
             }
 
             public void Pause(bool value)
@@ -82,6 +83,8 @@ namespace Souls
 
                 IsStart = false;
                 current = 0;
+
+                OnTimeOut?.Invoke();
             }
         }
     }
