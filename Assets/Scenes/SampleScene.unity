@@ -737,6 +737,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 4831686673566366923, guid: 420798dca5c57e88cbe028c5156defbd,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1361390381}
+    - target: {fileID: 4831686673566366923, guid: 420798dca5c57e88cbe028c5156defbd,
+        type: 3}
+      propertyPath: orbitClamp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4831686673566366923, guid: 420798dca5c57e88cbe028c5156defbd,
+        type: 3}
+      propertyPath: zoomOutSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4831686673566366923, guid: 420798dca5c57e88cbe028c5156defbd,
+        type: 3}
+      propertyPath: zoomOutClamp
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4831686673566366923, guid: 420798dca5c57e88cbe028c5156defbd,
+        type: 3}
+      propertyPath: zoomInClamp
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4831686673566366923, guid: 420798dca5c57e88cbe028c5156defbd,
+        type: 3}
+      propertyPath: offset.z
+      value: -5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4831686673566366923, guid: 420798dca5c57e88cbe028c5156defbd,
+        type: 3}
+      propertyPath: offset.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4831686673566366923, guid: 420798dca5c57e88cbe028c5156defbd,
+        type: 3}
+      propertyPath: rotationClamp
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 4831686673566366920, guid: 420798dca5c57e88cbe028c5156defbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -797,11 +837,6 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 545
       objectReference: {fileID: 0}
-    - target: {fileID: 4831686673566366923, guid: 420798dca5c57e88cbe028c5156defbd,
-        type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 1361390381}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 420798dca5c57e88cbe028c5156defbd, type: 3}
 --- !u!1001 &5243300041833132115
@@ -876,5 +911,10 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 534669906}
+    - target: {fileID: 5243300042657504124, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
+        type: 3}
+      propertyPath: moveForce
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10375ba12d52aa8feb8e52f6569a4f2d, type: 3}

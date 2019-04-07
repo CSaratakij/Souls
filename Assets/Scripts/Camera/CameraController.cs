@@ -11,16 +11,12 @@ namespace Souls
         float sensitivity;
 
         [SerializeField]
-        [Range(0.1f, 1.0f)]
+        [Range(0.0f, 1.0f)]
         float rotationClamp;
 
         [SerializeField]
-        [Range(0.1f, 1.0f)]
-        float zoomOutSpeed;
-
-        [SerializeField]
-        [Range(0.1f, 1.0f)]
-        float orbitClamp;
+        [Range(0.0f, 1.0f)]
+        float zoomOutClamp;
 
         [SerializeField]
         Vector3 offset;
@@ -42,16 +38,18 @@ namespace Souls
 
         State state;
 
-        float minimumDistance;
-        float maximumDistance;
+        float hitMargin;
         float currentDistance;
 
-        bool isForceRotateTarget;
-        bool isHitObstacle;
+        float minimumDistance;
+        float maximumDistance;
 
+        bool isForceRotateTarget;
+        bool isInvertForwardAxis;
+
+        bool isHitObstacle;
         bool isCurrentHitObstacle;
         bool isPreviousHitObstacle;
-        bool isInvertForwardAxis;
 
         Vector2 mouseInput;
 
@@ -65,17 +63,18 @@ namespace Souls
         {
             sensitivity = 1.0f;
             rotationClamp = 0.4f;
-            orbitClamp = 0.3f;
-            zoomOutSpeed = 0.02f;
-            offset = new Vector3(0.0f, 1.0f, -5.0f);
+            zoomOutClamp = 0.001f;
+            offset = new Vector3(0.0f, 1.5f, -5.5f);
             target = (!target) ? GameObject.FindGameObjectWithTag("Player").transform : target;
             cameraObstacleMask = LayerMask.GetMask("Default");
         }
 
         void Awake()
         {
-            minimumDistance = 1.0f;
+            hitMargin = 0.5f;
+            minimumDistance = 0.5f;
             maximumDistance = Mathf.Abs(offset.z);
+            currentDistance = maximumDistance;
         }
 
         //Test
@@ -145,9 +144,9 @@ namespace Souls
 
             if (isHitObstacle)
             {
-                var targetDistance = hit.distance;
+                var targetDistance = hit.distance - hitMargin;
 
-                currentDistance -= Mathf.Lerp(currentDistance, targetDistance, orbitClamp) * Time.deltaTime;
+                currentDistance = targetDistance;
                 currentDistance = Mathf.Clamp(currentDistance, (targetDistance < minimumDistance) ? minimumDistance : targetDistance, maximumDistance);
 
                 var orbitPosition = (transform.rotation * new Vector3(offset.x, offset.y, -currentDistance)) + target.position;
@@ -155,9 +154,7 @@ namespace Souls
             }
             else
             {
-                currentDistance = (target.position - transform.position).magnitude;
-
-                currentDistance += Mathf.Lerp(currentDistance, maximumDistance, zoomOutSpeed) * Time.deltaTime;
+                currentDistance += Mathf.Lerp(currentDistance, maximumDistance, zoomOutClamp) * Time.fixedDeltaTime;
                 currentDistance = Mathf.Clamp(currentDistance, minimumDistance, maximumDistance);
 
                 var orbitPosition = (transform.rotation * new Vector3(offset.x, offset.y, -currentDistance)) + target.position;
