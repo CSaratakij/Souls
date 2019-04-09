@@ -916,5 +916,10 @@ PrefabInstance:
       propertyPath: moveForce
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 6209187710149170721, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 84efc9372a220a49b841aef12a03447f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10375ba12d52aa8feb8e52f6569a4f2d, type: 3}
