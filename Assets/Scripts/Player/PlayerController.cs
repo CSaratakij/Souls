@@ -134,10 +134,12 @@ namespace Souls
             {
                 case GameState.Start:
                     isMoveAble = true;
+                    Debug.Log("Start");
                     break;
 
                 case GameState.Over:
                     isMoveAble = false;
+                    Debug.Log("Stop");
                     break;
 
                 default:

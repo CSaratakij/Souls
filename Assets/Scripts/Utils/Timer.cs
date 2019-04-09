@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +15,8 @@ namespace Souls
             [SerializeField]
             float max;
 
-            public delegate void _Func();
-            public event _Func OnTimeStart;
-            public event _Func OnTimeOut;
+            public event Action OnTimeStart;
+            public event Action OnTimeOut;
 
             public float Current => current;
             public float Max => max;

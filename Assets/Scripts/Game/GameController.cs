@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,9 +9,7 @@ namespace Souls
     {
         public static GameController Instance = null;
 
-        public delegate void _Func(GameState state);
-        public event _Func OnGameStateChange;
-
+        public event Action<GameState> OnGameStateChange;
         public GameState State => state;
 
 
