@@ -10,7 +10,7 @@ namespace Souls
         float moveForce;
 
         [SerializeField]
-        CameraController camera;
+        new CameraController camera;
 
 
         bool isMoveAble = false;
