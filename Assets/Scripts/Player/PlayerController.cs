@@ -10,10 +10,22 @@ namespace Souls
         float moveForce;
 
         [SerializeField]
+        float runMultiplier;
+
+        [SerializeField]
         new CameraController camera;
 
         [SerializeField]
         Animator anim;
+
+        enum MoveState
+        {
+            Idle,
+            Walk,
+            Run
+        }
+
+        MoveState moveState;
 
         bool isMoveAble = false;
         bool isUseLockOn = false;
@@ -23,7 +35,6 @@ namespace Souls
 
         Vector3 velocity;
         Rigidbody rigid;
-
 
         void Reset()
         {
@@ -83,12 +94,30 @@ namespace Souls
 
             lastNonZeroInputDir.x = (input.x > 0.0f || input.x < 0.0f) ? input.x : lastNonZeroInputDir.x;
             lastNonZeroInputDir.y = (input.y > 0.0f || input.y < 0.0f) ? input.y : lastNonZeroInputDir.y;
+
+            if (input == Vector2.zero)
+            {
+                moveState = MoveState.Idle;
+            }
+            else
+            {
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    moveState = MoveState.Run;
+                }
+                else
+                {
+                    moveState = MoveState.Walk;
+                }
+            }
+
         }
 
         void AnimationHandler()
         {
             bool isWalk = (input.x > 0.0f || input.x < 0.0f) || (input.y > 0.0f || input.y < 0.0f);
             anim.SetBool("Walk", isWalk);
+            anim.SetBool("Run", moveState == MoveState.Run);
         }
 
         void RotateHandler()
@@ -124,6 +153,9 @@ namespace Souls
                 rigid.velocity = velocity;
                 return;
             }
+
+            float moveForce = this.moveForce;
+            moveForce = (moveState == MoveState.Run) ? (moveForce * runMultiplier) : moveForce;
 
             //Flip forward dir, make camera handle rotation
             if (camera.CameraState == CameraController.State.Normal)

@@ -847,6 +847,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6209187710153287905, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 114233522d1411b4e9afc8f1d7e94702, type: 2}
+    - target: {fileID: 6209187710153287905, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5243300042657504126, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -917,25 +927,25 @@ PrefabInstance:
       propertyPath: anim
       value: 
       objectReference: {fileID: 614829933}
+    - target: {fileID: 5243300042657504124, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
+        type: 3}
+      propertyPath: runMultiplier
+      value: 1.8
+      objectReference: {fileID: 0}
     - target: {fileID: 6209187710149170721, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 84efc9372a220a49b841aef12a03447f, type: 2}
+    - target: {fileID: 6209187710149170721, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: aedc06e9a12efb62faddd00843f9298a, type: 3}
     - target: {fileID: 5243300042657504125, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
         type: 3}
       propertyPath: m_Drag
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6209187710153287905, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 114233522d1411b4e9afc8f1d7e94702, type: 2}
-    - target: {fileID: 6209187710153287905, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
-        type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10375ba12d52aa8feb8e52f6569a4f2d, type: 3}
