@@ -63,7 +63,7 @@ namespace Souls
         {
             sensitivity = 1.0f;
             rotationClamp = 0.4f;
-            zoomOutClamp = 0.001f;
+            zoomOutClamp = 0.005f;
             offset = new Vector3(0.0f, 1.5f, -5.5f);
             target = (!target) ? GameObject.FindGameObjectWithTag("Player").transform : target;
             cameraObstacleMask = LayerMask.GetMask("Default");
@@ -190,7 +190,7 @@ namespace Souls
                     /* targetRotationAxis.x = 0.0f; */
 
                     /* var targetRotation = Quaternion.Euler(targetRotationAxis); */
-                    /* target.rotation = Quaternion.Slerp(target.rotation, targetRotation, rotationClamp); */
+                    /* target.rotation = Quaternion.Slerp(target.rotation, targetRotation, rotationClamp);*/
                     break;
 
                 default:

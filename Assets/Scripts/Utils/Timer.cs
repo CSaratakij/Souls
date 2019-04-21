@@ -10,10 +10,10 @@ namespace Souls
         public class Timer : MonoBehaviour
         {
             [SerializeField]
-            float current;
+            float current = 0.0f;
 
             [SerializeField]
-            float max;
+            float max = 0.0f;
 
             public event Action OnTimeStart;
             public event Action OnTimeOut;

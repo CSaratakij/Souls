@@ -12,6 +12,8 @@ namespace Souls
         [SerializeField]
         new CameraController camera;
 
+        [SerializeField]
+        Animator anim;
 
         bool isMoveAble = false;
         bool isUseLockOn = false;
@@ -44,11 +46,12 @@ namespace Souls
         void Update()
         {
             InputHandler();
+            AnimationHandler();
         }
 
         void LateUpdate()
         {
-            CameraHandler();
+            RotateHandler();
         }
 
         void FixedUpdate()
@@ -82,10 +85,35 @@ namespace Souls
             lastNonZeroInputDir.y = (input.y > 0.0f || input.y < 0.0f) ? input.y : lastNonZeroInputDir.y;
         }
 
-        void CameraHandler()
+        void AnimationHandler()
         {
-            camera.ForceRotateTarget(input.magnitude > 0.2f);
-            camera.InvertForwardAxis(lastNonZeroInputDir.y < 0.0f);
+            bool isWalk = (input.x > 0.0f || input.x < 0.0f) || (input.y > 0.0f || input.y < 0.0f);
+            anim.SetBool("Walk", isWalk);
+        }
+
+        void RotateHandler()
+        {
+            if (input.y > 0.0f || input.y < 0.0f)
+            {
+                camera.ForceRotateTarget(input.magnitude > 0.2f);
+                camera.InvertForwardAxis(lastNonZeroInputDir.y < 0.0f);
+            }
+            else if (input.x > 0.0f || input.x < 0.0f)
+            {
+                camera.ForceRotateTarget(false);
+                camera.InvertForwardAxis(false);
+
+                var targetRotationAxis = (lastNonZeroInputDir.x > 0.0f) ? camera.transform.right : -camera.transform.right;
+                targetRotationAxis.y = 0.0f;
+
+                var targetRotation = Quaternion.LookRotation(targetRotationAxis);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.2f);
+            }
+            else
+            {
+                camera.ForceRotateTarget(false);
+                camera.InvertForwardAxis(false);
+            }
         }
 
         void MovementHandler()
@@ -100,13 +128,21 @@ namespace Souls
             //Flip forward dir, make camera handle rotation
             if (camera.CameraState == CameraController.State.Normal)
             {
-                if (lastNonZeroInputDir.y < 0.0f)
+                if (input.y > 0.0f || input.y < 0.0f)
                 {
-                    velocity = ((transform.forward * Mathf.Abs(input.y)) + (transform.right * (input.x * lastNonZeroInputDir.y))).normalized * moveForce;
+                    if (lastNonZeroInputDir.y < 0.0f)
+                    {
+                        velocity = ((transform.forward * Mathf.Abs(input.y)) + (transform.right * (input.x * lastNonZeroInputDir.y))).normalized * moveForce;
+                    }
+                    else
+                    {
+                        velocity = ((transform.forward * Mathf.Abs(input.y)) + (transform.right * input.x)).normalized * moveForce;
+                    }
                 }
                 else
                 {
-                    velocity = ((transform.forward * Mathf.Abs(input.y)) + (transform.right * input.x)).normalized * moveForce;
+                    //If player is not intent to move forward, apply force by input right/left axis
+                    velocity = transform.forward * Mathf.Abs(input.x) * moveForce;
                 }
             }
             //Lock on camera will always make forward axis face its target, no need to flip dir
@@ -133,14 +169,18 @@ namespace Souls
             switch (state)
             {
                 case GameState.Start:
+                {
                     isMoveAble = true;
                     Debug.Log("Start");
-                    break;
+                }
+                break;
 
                 case GameState.Over:
+                {
                     isMoveAble = false;
                     Debug.Log("Stop");
-                    break;
+                }
+                break;
 
                 default:
                     break;

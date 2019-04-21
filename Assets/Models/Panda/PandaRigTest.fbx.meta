@@ -1,78 +1,218 @@
 fileFormatVersion: 2
 guid: aedc06e9a12efb62faddd00843f9298a
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: CenterNeck
-    100002: CenterRoot
-    100004: CenterSpine1
-    100006: CenterSpine2
-    100008: CenterSpineRoot
-    100010: HeadEnd
-    100012: LeftCollar
-    100014: LeftEar
-    100016: LeftEarEnf
-    100018: LeftElbow
-    100020: LeftFinger
-    100022: LeftFoot
-    100024: LeftHand
-    100026: LeftHip
-    100028: LeftKnee
-    100030: LeftKneeEnd
-    100032: LeftShoulder
-    100034: LeftToe
-    100036: Panda
-    100038: //RootNode
-    100040: RightCollar
-    100042: RightEar
-    100044: RightEarEnd
-    100046: RightElbow
-    100048: RightFinger
-    100050: RightFoot
-    100052: RightHand
-    100054: RightHip
-    100056: RightKnee
-    100058: RightKneeEnd
-    100060: RightShoulder
-    100062: RightToe
-    400000: CenterNeck
-    400002: CenterRoot
-    400004: CenterSpine1
-    400006: CenterSpine2
-    400008: CenterSpineRoot
-    400010: HeadEnd
-    400012: LeftCollar
-    400014: LeftEar
-    400016: LeftEarEnf
-    400018: LeftElbow
-    400020: LeftFinger
-    400022: LeftFoot
-    400024: LeftHand
-    400026: LeftHip
-    400028: LeftKnee
-    400030: LeftKneeEnd
-    400032: LeftShoulder
-    400034: LeftToe
-    400036: Panda
-    400038: //RootNode
-    400040: RightCollar
-    400042: RightEar
-    400044: RightEarEnd
-    400046: RightElbow
-    400048: RightFinger
-    400050: RightFoot
-    400052: RightHand
-    400054: RightHip
-    400056: RightKnee
-    400058: RightKneeEnd
-    400060: RightShoulder
-    400062: RightToe
-    2100000: lambert1
-    4300000: Panda
-    7400000: Take 001
-    9500000: //RootNode
-    13700000: Panda
-    2186277476908879412: ImportLogs
+  serializedVersion: 25
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: CenterNeck
+  - first:
+      1: 100002
+    second: CenterRoot
+  - first:
+      1: 100004
+    second: CenterSpine1
+  - first:
+      1: 100006
+    second: CenterSpine2
+  - first:
+      1: 100008
+    second: CenterSpineRoot
+  - first:
+      1: 100010
+    second: HeadEnd
+  - first:
+      1: 100012
+    second: LeftCollar
+  - first:
+      1: 100014
+    second: LeftEar
+  - first:
+      1: 100016
+    second: LeftEarEnf
+  - first:
+      1: 100018
+    second: LeftElbow
+  - first:
+      1: 100020
+    second: LeftFinger
+  - first:
+      1: 100022
+    second: LeftFoot
+  - first:
+      1: 100024
+    second: LeftHand
+  - first:
+      1: 100026
+    second: LeftHip
+  - first:
+      1: 100028
+    second: LeftKnee
+  - first:
+      1: 100030
+    second: LeftKneeEnd
+  - first:
+      1: 100032
+    second: LeftShoulder
+  - first:
+      1: 100034
+    second: LeftToe
+  - first:
+      1: 100036
+    second: Panda
+  - first:
+      1: 100038
+    second: //RootNode
+  - first:
+      1: 100040
+    second: RightCollar
+  - first:
+      1: 100042
+    second: RightEar
+  - first:
+      1: 100044
+    second: RightEarEnd
+  - first:
+      1: 100046
+    second: RightElbow
+  - first:
+      1: 100048
+    second: RightFinger
+  - first:
+      1: 100050
+    second: RightFoot
+  - first:
+      1: 100052
+    second: RightHand
+  - first:
+      1: 100054
+    second: RightHip
+  - first:
+      1: 100056
+    second: RightKnee
+  - first:
+      1: 100058
+    second: RightKneeEnd
+  - first:
+      1: 100060
+    second: RightShoulder
+  - first:
+      1: 100062
+    second: RightToe
+  - first:
+      4: 400000
+    second: CenterNeck
+  - first:
+      4: 400002
+    second: CenterRoot
+  - first:
+      4: 400004
+    second: CenterSpine1
+  - first:
+      4: 400006
+    second: CenterSpine2
+  - first:
+      4: 400008
+    second: CenterSpineRoot
+  - first:
+      4: 400010
+    second: HeadEnd
+  - first:
+      4: 400012
+    second: LeftCollar
+  - first:
+      4: 400014
+    second: LeftEar
+  - first:
+      4: 400016
+    second: LeftEarEnf
+  - first:
+      4: 400018
+    second: LeftElbow
+  - first:
+      4: 400020
+    second: LeftFinger
+  - first:
+      4: 400022
+    second: LeftFoot
+  - first:
+      4: 400024
+    second: LeftHand
+  - first:
+      4: 400026
+    second: LeftHip
+  - first:
+      4: 400028
+    second: LeftKnee
+  - first:
+      4: 400030
+    second: LeftKneeEnd
+  - first:
+      4: 400032
+    second: LeftShoulder
+  - first:
+      4: 400034
+    second: LeftToe
+  - first:
+      4: 400036
+    second: Panda
+  - first:
+      4: 400038
+    second: //RootNode
+  - first:
+      4: 400040
+    second: RightCollar
+  - first:
+      4: 400042
+    second: RightEar
+  - first:
+      4: 400044
+    second: RightEarEnd
+  - first:
+      4: 400046
+    second: RightElbow
+  - first:
+      4: 400048
+    second: RightFinger
+  - first:
+      4: 400050
+    second: RightFoot
+  - first:
+      4: 400052
+    second: RightHand
+  - first:
+      4: 400054
+    second: RightHip
+  - first:
+      4: 400056
+    second: RightKnee
+  - first:
+      4: 400058
+    second: RightKneeEnd
+  - first:
+      4: 400060
+    second: RightShoulder
+  - first:
+      4: 400062
+    second: RightToe
+  - first:
+      21: 2100000
+    second: lambert1
+  - first:
+      43: 4300000
+    second: Panda
+  - first:
+      74: 7400000
+    second: Take 001
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Panda
+  - first:
+      41386430: 2186277476908879412
+    second: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 0
@@ -100,7 +240,36 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      internalID: 7400000
+      firstFrame: 1
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -115,18 +284,19 @@ ModelImporter:
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.39999998
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -135,10 +305,11 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  importAnimation: 1
+  referencedClips: []
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human:
     - boneName: CenterRoot
       humanName: Hips
@@ -212,6 +383,14 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
+    - boneName: CenterNeck
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
     - boneName: LeftCollar
       humanName: LeftShoulder
       limit:
@@ -276,16 +455,24 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: CenterSpine2
-      humanName: UpperChest
+    - boneName: LeftEar
+      humanName: LeftEye
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: CenterNeck
-      humanName: Head
+    - boneName: RightEar
+      humanName: RightEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: CenterSpine2
+      humanName: UpperChest
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -460,6 +647,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 40
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 1

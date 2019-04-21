@@ -407,6 +407,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e04f9a86075a85f8968425709f8fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &614829933 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6209187710153287905, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5243300041833132115}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &798407716
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,10 +912,30 @@ PrefabInstance:
       propertyPath: moveForce
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 5243300042657504124, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
+        type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 614829933}
     - target: {fileID: 6209187710149170721, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 84efc9372a220a49b841aef12a03447f, type: 2}
+    - target: {fileID: 5243300042657504125, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
+        type: 3}
+      propertyPath: m_Drag
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6209187710153287905, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 114233522d1411b4e9afc8f1d7e94702, type: 2}
+    - target: {fileID: 6209187710153287905, guid: 10375ba12d52aa8feb8e52f6569a4f2d,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10375ba12d52aa8feb8e52f6569a4f2d, type: 3}
