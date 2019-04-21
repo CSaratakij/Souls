@@ -116,8 +116,25 @@ namespace Souls
         void AnimationHandler()
         {
             bool isWalk = (input.x > 0.0f || input.x < 0.0f) || (input.y > 0.0f || input.y < 0.0f);
+
             anim.SetBool("Walk", isWalk);
             anim.SetBool("Run", moveState == MoveState.Run);
+
+            //Test Dead animation
+            if (Input.GetKeyDown(KeyCode.LeftControl) && isMoveAble)
+            {
+                isMoveAble = false;
+                anim.applyRootMotion = true;
+
+                if (Physics.Linecast(transform.position, transform.position + (transform.forward * 2.5f)))
+                {
+                    anim.SetTrigger("DeadBackward");
+                }
+                else
+                {
+                    anim.SetTrigger("Dead");
+                }
+            }
         }
 
         void RotateHandler()
