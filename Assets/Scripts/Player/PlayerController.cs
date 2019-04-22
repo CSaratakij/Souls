@@ -29,6 +29,7 @@ namespace Souls
 
         bool isInputAble = false;
         bool isMoveAble = false;
+        bool isUseOnlyRootMotionMovement = false;
         bool isUseLockOn = false;
         bool isBeginAttack = false;
         bool isAttack = false;
@@ -200,6 +201,11 @@ namespace Souls
                 return;
             }
 
+            if (isUseOnlyRootMotionMovement)
+            {
+                return;
+            }
+
             float moveForce = this.moveForce;
             moveForce = (moveState == MoveState.Run) ? (moveForce * runMultiplier) : moveForce;
 
@@ -284,10 +290,20 @@ namespace Souls
             anim.applyRootMotion = true;
         }
 
+        public void PreventPlayerMovement()
+        {
+            isUseOnlyRootMotionMovement = true;
+        }
+
         public void RegainPlayerControl()
         {
             isInputAble = true;
             anim.applyRootMotion = false;
+        }
+
+        public void RegainPlayerMovement()
+        {
+            isUseOnlyRootMotionMovement = false;
         }
     }
 }
