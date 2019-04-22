@@ -66,14 +66,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.7415255
+      - time: 0.91295403
         functionName: RegainPlayerControl
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.80932206
+      - time: 0.96442413
         functionName: EndAttackEvent
         data: 
         objectReferenceParameter: {instanceID: 0}

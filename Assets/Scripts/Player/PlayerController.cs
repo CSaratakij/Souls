@@ -130,7 +130,7 @@ namespace Souls
             if (Input.GetButtonDown("Fire1"))
             {
                 isInputAble = false;
-                anim.applyRootMotion = true;
+                /* anim.applyRootMotion = true; */
                 anim.SetTrigger("Slash");
             }
 
