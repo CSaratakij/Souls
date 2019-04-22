@@ -27,8 +27,11 @@ namespace Souls
 
         MoveState moveState;
 
+        bool isInputAble = false;
         bool isMoveAble = false;
         bool isUseLockOn = false;
+        bool isBeginAttack = false;
+        bool isAttack = false;
 
         Vector2 input;
         Vector2 lastNonZeroInputDir;
@@ -82,7 +85,7 @@ namespace Souls
 
         void InputHandler()
         {
-            if (!isMoveAble) {
+            if (!isMoveAble || !isInputAble) {
                 input = Vector2.zero;
                 return;
             }
@@ -115,15 +118,34 @@ namespace Souls
 
         void AnimationHandler()
         {
+            bool isRun = moveState == MoveState.Run;
             bool isWalk = (input.x > 0.0f || input.x < 0.0f) || (input.y > 0.0f || input.y < 0.0f);
+
+            //Test
+            bool isDead = false;
 
             anim.SetBool("Walk", isWalk);
             anim.SetBool("Run", moveState == MoveState.Run);
 
+            if (Input.GetButtonDown("Fire1"))
+            {
+                isInputAble = false;
+                anim.applyRootMotion = true;
+                anim.SetTrigger("Slash");
+            }
+
+#if UNITY_EDITOR
             //Test Dead animation
-            if (Input.GetKeyDown(KeyCode.LeftControl) && isMoveAble)
+            if (Input.GetKeyDown(KeyCode.F1) && isMoveAble)
+            {
+                isDead = true;
+            }
+#endif
+            if (isDead)
             {
                 isMoveAble = false;
+                isInputAble = false;
+
                 anim.applyRootMotion = true;
 
                 if (Physics.Linecast(transform.position, transform.position + (transform.forward * 2.5f)))
@@ -139,6 +161,9 @@ namespace Souls
 
         void RotateHandler()
         {
+            if (!isInputAble)
+                return;
+
             if (input.y > 0.0f || input.y < 0.0f)
             {
                 camera.ForceRotateTarget(input.magnitude > 0.2f);
@@ -220,6 +245,7 @@ namespace Souls
                 case GameState.Start:
                 {
                     isMoveAble = true;
+                    isInputAble = true;
                     Debug.Log("Start");
                 }
                 break;
@@ -227,6 +253,7 @@ namespace Souls
                 case GameState.Over:
                 {
                     isMoveAble = false;
+                    isInputAble = false;
                     Debug.Log("Stop");
                 }
                 break;
@@ -234,6 +261,29 @@ namespace Souls
                 default:
                     break;
             }
+        }
+
+        public void EndAttackEvent()
+        {
+            isBeginAttack = false;
+            isAttack = false;
+        }
+
+        public void DoDamage()
+        {
+            //when attack frame, cast and hit enemy here..
+        }
+
+        public void PreventPlayerControl()
+        {
+            isInputAble = false;
+            anim.applyRootMotion = true;
+        }
+
+        public void RegainPlayerControl()
+        {
+            isInputAble = true;
+            anim.applyRootMotion = false;
         }
     }
 }
