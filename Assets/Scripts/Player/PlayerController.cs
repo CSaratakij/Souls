@@ -129,7 +129,7 @@ namespace Souls
 
             if (Input.GetButtonDown("Fire1"))
             {
-                isInputAble = false;
+                /* isInputAble = false; */
                 /* anim.applyRootMotion = true; */
                 anim.SetTrigger("Slash");
             }
@@ -162,7 +162,11 @@ namespace Souls
         void RotateHandler()
         {
             if (!isInputAble)
+            {
+                camera.ForceRotateTarget(false);
+                camera.InvertForwardAxis(false);
                 return;
+            }
 
             if (input.y > 0.0f || input.y < 0.0f)
             {

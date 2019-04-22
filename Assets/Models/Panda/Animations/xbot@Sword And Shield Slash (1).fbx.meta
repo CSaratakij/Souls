@@ -59,21 +59,21 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
+      - time: 0.09198813
         functionName: PreventPlayerControl
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.81355935
+      - time: 0.92630446
         functionName: RegainPlayerControl
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.87288135
+      - time: 0.9660186
         functionName: EndAttackEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
