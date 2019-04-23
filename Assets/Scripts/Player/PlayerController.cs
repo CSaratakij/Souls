@@ -162,7 +162,8 @@ namespace Souls
 
         void RotateHandler()
         {
-            if (!isInputAble)
+            //Manual rotate if there is no specific look at target
+            if (!isInputAble || isUseOnlyRootMotionMovement)
             {
                 camera.ForceRotateTarget(false);
                 camera.InvertForwardAxis(false);
