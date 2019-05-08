@@ -54,7 +54,6 @@ namespace Souls
             runMultiplier = 1.8f;
             anim = GetComponent<Animator>();
             camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
-            //Replace with regainable stat?
             var stats = GetComponents<Stat>();
             health = stats[0];
             stamina = stats[1];
@@ -139,7 +138,7 @@ namespace Souls
             anim.SetBool("Walk", isWalk);
             anim.SetBool("Run", moveState == MoveState.Run);
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && !stamina.IsEmpty)
             {
                 anim.SetTrigger("Slash");
             }
@@ -283,6 +282,11 @@ namespace Souls
             }
         }
 
+        public void BeginAttackEvent()
+        {
+            stamina.Remove(10);
+        }
+
         public void EndAttackEvent()
         {
             isBeginAttack = false;
@@ -296,6 +300,7 @@ namespace Souls
 
         public void PreventPlayerControl()
         {
+            BeginAttackEvent();
             isInputAble = false;
             /* anim.applyRootMotion = true; */
         }

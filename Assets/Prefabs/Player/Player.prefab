@@ -237,8 +237,8 @@ MonoBehaviour:
   runMultiplier: 1.8
   camera: {fileID: 0}
   anim: {fileID: 251053114}
-  health: {fileID: 1247402430}
-  stamina: {fileID: 1247402429}
+  health: {fileID: 1247402429}
+  stamina: {fileID: 1247402430}
 --- !u!114 &1247402429
 MonoBehaviour:
   m_ObjectHideFlags: 0
