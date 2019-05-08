@@ -33,6 +33,10 @@ namespace Souls
 
         MoveState moveState;
 
+        float regainStaminaDelay;
+        float removeStaminaDelay;
+        float regainStaminaRate;
+
         bool isInputAble = false;
         bool isMoveAble = false;
         bool isUseOnlyRootMotionMovement = false;
@@ -40,6 +44,7 @@ namespace Souls
         bool isBeginAttack = false;
         bool isAttack = false;
         bool isNeedPlayDead = false;
+        bool isExualted = false;
 
         Vector2 input;
         Vector2 lastNonZeroInputDir;
@@ -120,7 +125,20 @@ namespace Souls
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    moveState = MoveState.Run;
+                    if (stamina.IsEmpty)
+                    {
+                        moveState = MoveState.Walk;
+                        isExualted = true;
+                    }
+                    else
+                    {
+                        if (!isExualted)
+                        {
+                            moveState = MoveState.Run;
+                            regainStaminaDelay = (Time.time + 1.3f);
+                            regainStaminaRate = (regainStaminaDelay + 0.5f);
+                        }
+                    }
                 }
                 else
                 {
@@ -128,6 +146,37 @@ namespace Souls
                 }
             }
 
+            if (moveState == MoveState.Run)
+            {
+                if (Time.time > removeStaminaDelay)
+                {
+                    stamina.Remove(3);
+                    removeStaminaDelay = (Time.time + 0.15f);
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                isExualted = false;
+            }
+
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                if (!isExualted)
+                {
+                    regainStaminaDelay = (Time.time + 1.3f);
+                    regainStaminaRate = (regainStaminaDelay + 0.5f);
+                }
+            }
+
+            if (stamina.Current < stamina.Max)
+            {
+                if (Time.time > regainStaminaDelay && Time.time > regainStaminaRate)
+                {
+                    stamina.Restore(5);
+                    regainStaminaRate = (Time.time + 0.5f);
+                }
+            }
         }
 
         void AnimationHandler()
