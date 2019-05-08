@@ -288,7 +288,7 @@ namespace Souls
         public void PreventPlayerControl()
         {
             isInputAble = false;
-            anim.applyRootMotion = true;
+            /* anim.applyRootMotion = true; */
         }
 
         public void PreventPlayerMovement()
@@ -299,7 +299,7 @@ namespace Souls
         public void RegainPlayerControl()
         {
             isInputAble = true;
-            anim.applyRootMotion = false;
+            /* anim.applyRootMotion = false; */
         }
 
         public void RegainPlayerMovement()
