@@ -174,7 +174,7 @@ namespace Souls
                 if (Time.time > regainStaminaDelay && Time.time > regainStaminaRate)
                 {
                     stamina.Restore(5);
-                    regainStaminaRate = (Time.time + 0.5f);
+                    regainStaminaRate = (Time.time + 0.25f);
                 }
             }
         }
@@ -187,7 +187,7 @@ namespace Souls
             anim.SetBool("Walk", isWalk);
             anim.SetBool("Run", moveState == MoveState.Run);
 
-            if (Input.GetButtonDown("Fire1") && !stamina.IsEmpty)
+            if (Input.GetButtonDown("Fire1") && !stamina.IsEmpty && stamina.Current >= 18)
             {
                 anim.SetTrigger("Slash");
             }
@@ -333,7 +333,9 @@ namespace Souls
 
         public void BeginAttackEvent()
         {
-            stamina.Remove(10);
+            regainStaminaDelay = (Time.time + 1.3f);
+            regainStaminaRate = (regainStaminaDelay + 0.5f);
+            stamina.Remove(18);
         }
 
         public void EndAttackEvent()
