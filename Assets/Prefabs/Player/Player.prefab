@@ -148,6 +148,8 @@ GameObject:
   - component: {fileID: 5243300042657504121}
   - component: {fileID: 251053114}
   - component: {fileID: 5243300042657504124}
+  - component: {fileID: 1247402429}
+  - component: {fileID: 1247402430}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -196,10 +198,10 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 60e6acd01e49351f08868e297e75546e, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5435353
-  m_Height: 2.7049994
+  m_Radius: 0.5935353
+  m_Height: 2.89294
   m_Direction: 1
-  m_Center: {x: 0, y: 0.35249972, z: 0}
+  m_Center: {x: -0.05000007, y: 0.38294637, z: 0}
 --- !u!95 &251053114
 Animator:
   serializedVersion: 3
@@ -235,6 +237,36 @@ MonoBehaviour:
   runMultiplier: 1.8
   camera: {fileID: 0}
   anim: {fileID: 251053114}
+  health: {fileID: 1247402430}
+  stamina: {fileID: 1247402429}
+--- !u!114 &1247402429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5243300042657504122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6fd2caed25a28109e54b7a21b45104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  current: 100
+  max: 100
+--- !u!114 &1247402430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5243300042657504122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6fd2caed25a28109e54b7a21b45104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  current: 100
+  max: 100
 --- !u!1001 &966861993707904024
 PrefabInstance:
   m_ObjectHideFlags: 0

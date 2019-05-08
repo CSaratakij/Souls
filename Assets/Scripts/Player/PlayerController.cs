@@ -18,6 +18,12 @@ namespace Souls
         [SerializeField]
         Animator anim;
 
+        [SerializeField]
+        Stat health;
+
+        [SerializeField]
+        Stat stamina;
+
         enum MoveState
         {
             Idle,
@@ -33,6 +39,7 @@ namespace Souls
         bool isUseLockOn = false;
         bool isBeginAttack = false;
         bool isAttack = false;
+        bool isNeedPlayDead = false;
 
         Vector2 input;
         Vector2 lastNonZeroInputDir;
@@ -40,10 +47,17 @@ namespace Souls
         Vector3 velocity;
         Rigidbody rigid;
 
+
         void Reset()
         {
-            moveForce = 30.0f;
+            moveForce = 20.0f;
+            runMultiplier = 1.8f;
+            anim = GetComponent<Animator>();
             camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
+            //Replace with regainable stat?
+            var stats = GetComponents<Stat>();
+            health = stats[0];
+            stamina = stats[1];
         }
 
         void Awake()
@@ -122,28 +136,23 @@ namespace Souls
             bool isRun = moveState == MoveState.Run;
             bool isWalk = (input.x > 0.0f || input.x < 0.0f) || (input.y > 0.0f || input.y < 0.0f);
 
-            //Test
-            bool isDead = false;
-
             anim.SetBool("Walk", isWalk);
             anim.SetBool("Run", moveState == MoveState.Run);
 
             if (Input.GetButtonDown("Fire1"))
             {
-                /* isInputAble = false; */
-                /* anim.applyRootMotion = true; */
                 anim.SetTrigger("Slash");
             }
 
 #if UNITY_EDITOR
-            //Test Dead animation
             if (Input.GetKeyDown(KeyCode.F1) && isMoveAble)
             {
-                isDead = true;
+                health.Clear();
             }
 #endif
-            if (isDead)
+            if (health.IsEmpty && !isNeedPlayDead)
             {
+                isNeedPlayDead = true;
                 isMoveAble = false;
                 isInputAble = false;
 

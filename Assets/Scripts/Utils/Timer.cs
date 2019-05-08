@@ -5,87 +5,84 @@ using UnityEngine;
 
 namespace Souls
 {
-    namespace Souls
+    public class Timer : MonoBehaviour
     {
-        public class Timer : MonoBehaviour
+        [SerializeField]
+        float current = 0.0f;
+
+        [SerializeField]
+        float max = 0.0f;
+
+        public event Action OnTimeStart;
+        public event Action OnTimeOut;
+
+        public float Current => current;
+        public float Max => max;
+
+        public bool IsStart { get; private set; }
+        public bool IsPause { get; private set; }
+
+
+        void Update()
         {
-            [SerializeField]
-            float current = 0.0f;
+            TickHandler();
+        }
 
-            [SerializeField]
-            float max = 0.0f;
+        void OnDestroy()
+        {
+            CleanUp();
+        }
 
-            public event Action OnTimeStart;
-            public event Action OnTimeOut;
+        void TickHandler()
+        {
+            if (!IsStart || IsPause)
+                return;
 
-            public float Current => current;
-            public float Max => max;
+            current -= 1.0f * Time.deltaTime;
 
-            public bool IsStart { get; private set; }
-            public bool IsPause { get; private set; }
+            if (current <= 0.0f)
+                Stop();
+        }
 
+        void CleanUp()
+        {
+            OnTimeStart = null;
+            OnTimeOut = null;
+        }
 
-            void Update()
-            {
-                TickHandler();
-            }
+        public void Countdown()
+        {
+            if (IsStart)
+                return;
 
-            void OnDestroy()
-            {
-                CleanUp();
-            }
+            if (current <= 0.0f)
+                Reset();
 
-            void TickHandler()
-            {
-                if (!IsStart || IsPause)
-                    return;
+            IsStart = true;
+            OnTimeStart?.Invoke();
+        }
 
-                current -= 1.0f * Time.deltaTime;
+        public void Pause(bool value)
+        {
+            IsPause = value;
+        }
 
-                if (current <= 0.0f)
-                    Stop();
-            }
+        public void Reset()
+        {
+            current = max;
+            IsStart = false;
+            IsPause = false;
+        }
 
-            void CleanUp()
-            {
-                OnTimeStart = null;
-                OnTimeOut = null;
-            }
+        public void Stop()
+        {
+            if (!IsStart)
+                return;
 
-            public void Countdown()
-            {
-                if (IsStart)
-                    return;
+            IsStart = false;
+            current = 0;
 
-                if (current <= 0.0f)
-                    Reset();
-
-                IsStart = true;
-                OnTimeStart?.Invoke();
-            }
-
-            public void Pause(bool value)
-            {
-                IsPause = value;
-            }
-
-            public void Reset()
-            {
-                current = max;
-                IsStart = false;
-                IsPause = false;
-            }
-
-            public void Stop()
-            {
-                if (!IsStart)
-                    return;
-
-                IsStart = false;
-                current = 0;
-
-                OnTimeOut?.Invoke();
-            }
+            OnTimeOut?.Invoke();
         }
     }
 }
