@@ -90,6 +90,12 @@ namespace Souls
 
         void InputHandler()
         {
+            if (GameController.Instance.State == GameState.Over)
+            {
+                mouseInput = Vector3.zero;
+                return;
+            }
+
             mouseInput.x = Input.GetAxis("Mouse X");
             mouseInput.y = Input.GetAxis("Mouse Y");
 

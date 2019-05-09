@@ -262,13 +262,17 @@ namespace Souls
                 {
                     anim.SetTrigger("Dead");
                 }
+
+                GameController.Instance.GameOver();
             }
         }
 
         void RotateHandler()
         {
             //Manual rotate if there is no specific look at target
-            if (!isInputAble || isUseOnlyRootMotionMovement || isGuard || Time.timeScale <= 0.0f)
+            bool isPreventRotation = (!isInputAble || isUseOnlyRootMotionMovement || isGuard || Time.timeScale <= 0.0f || GameController.Instance.State == GameState.Over);
+
+            if (isPreventRotation)
             {
                 camera.ForceRotateTarget(false);
                 camera.InvertForwardAxis(false);

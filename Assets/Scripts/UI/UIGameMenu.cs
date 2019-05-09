@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace Souls
 {
+    [RequireComponent(typeof(CursorController))]
     public class UIGameMenu : MonoBehaviour
     {
         [SerializeField]
@@ -49,6 +50,11 @@ namespace Souls
 
         void InputHandler()
         {
+            if (GameController.Instance.State == GameState.Over)
+            {
+                return;
+            }
+
             if (Input.GetButtonDown("Cancel"))
             {
                 bool shouldPauseMenuVisible = menu[(int)Menu.PauseMenu].gameObject.activeSelf;
