@@ -148,7 +148,7 @@ namespace Souls
             lastNonZeroInputDir.x = (input.x > 0.0f || input.x < 0.0f) ? input.x : lastNonZeroInputDir.x;
             lastNonZeroInputDir.y = (input.y > 0.0f || input.y < 0.0f) ? input.y : lastNonZeroInputDir.y;
 
-            isGuard = Input.GetKey(KeyCode.Q);
+            isGuard = health.IsEmpty ? false : Input.GetKey(KeyCode.Q);
 
             if (input == Vector2.zero)
             {
@@ -202,6 +202,12 @@ namespace Souls
                 }
             }
 
+            if (isGuard)
+            {
+                regainStaminaDelay = (Time.time + 1.3f);
+                regainStaminaRate = (Time.time + 0.15f);
+            }
+
             if (stamina.Current < stamina.Max)
             {
                 if (Time.time > regainStaminaDelay && Time.time > regainStaminaRate)
@@ -243,7 +249,9 @@ namespace Souls
                 isNeedPlayDead = true;
                 isMoveAble = false;
                 isInputAble = false;
+                isGuard = false;
 
+                anim.SetBool("Block", false);
                 anim.applyRootMotion = true;
 
                 if (Physics.Linecast(transform.position, transform.position + (transform.forward * 2.5f)))
@@ -382,6 +390,9 @@ namespace Souls
 
                 if (totalHit < 0)
                 {
+                    regainStaminaDelay = (Time.time + 0.5f);
+                    regainStaminaRate = (regainStaminaDelay + 0.25f);
+
                     stamina.Clear();
                     health.Remove(Mathf.Abs(totalHit));
 
@@ -392,6 +403,9 @@ namespace Souls
                 }
                 else
                 {
+                    regainStaminaDelay = (Time.time + 0.5f);
+                    regainStaminaRate = (regainStaminaDelay + 0.25f);
+
                     stamina.Remove(value);
                 }
             }
