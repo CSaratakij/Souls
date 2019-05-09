@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Souls
 {
+    [RequireComponent(typeof(Damageable))]
     public class PlayerController : MonoBehaviour
     {
         [SerializeField]
@@ -23,6 +24,9 @@ namespace Souls
 
         [SerializeField]
         Stat stamina;
+
+        [SerializeField]
+        LayerMask enemyLayer;
 
         enum MoveState
         {
@@ -46,11 +50,15 @@ namespace Souls
         bool isNeedPlayDead = false;
         bool isExualted = false;
 
+        Damageable damageable;
+
         Vector2 input;
         Vector2 lastNonZeroInputDir;
 
         Vector3 velocity;
+
         Rigidbody rigid;
+        Collider[] enemies;
 
 
         void Reset()
@@ -90,6 +98,7 @@ namespace Souls
         void FixedUpdate()
         {
             MovementHandler();
+            DetectEnemyHandler();
         }
 
         void OnDestroy()
@@ -99,6 +108,8 @@ namespace Souls
 
         void Initialize()
         {
+            enemies = new Collider[5];
+            damageable = GetComponent<Damageable>();
             rigid = GetComponent<Rigidbody>();
         }
 
@@ -150,7 +161,7 @@ namespace Souls
             {
                 if (Time.time > removeStaminaDelay)
                 {
-                    stamina.Remove(3);
+                    stamina.Remove(2);
                     removeStaminaDelay = (Time.time + 0.15f);
                 }
             }
@@ -165,7 +176,7 @@ namespace Souls
                 if (!isExualted)
                 {
                     regainStaminaDelay = (Time.time + 1.3f);
-                    regainStaminaRate = (regainStaminaDelay + 0.5f);
+                    regainStaminaRate = (regainStaminaDelay + 0.25f);
                 }
             }
 
@@ -174,7 +185,7 @@ namespace Souls
                 if (Time.time > regainStaminaDelay && Time.time > regainStaminaRate)
                 {
                     stamina.Restore(5);
-                    regainStaminaRate = (Time.time + 0.25f);
+                    regainStaminaRate = (Time.time + 0.15f);
                 }
             }
         }
@@ -187,7 +198,7 @@ namespace Souls
             anim.SetBool("Walk", isWalk);
             anim.SetBool("Run", moveState == MoveState.Run);
 
-            if (Input.GetButtonDown("Fire1") && !stamina.IsEmpty && stamina.Current >= 18)
+            if (Input.GetButtonDown("Fire1") && !stamina.IsEmpty && stamina.Current >= 12)
             {
                 anim.SetTrigger("Slash");
             }
@@ -296,14 +307,36 @@ namespace Souls
             rigid.AddForce(velocity, ForceMode.Force);
         }
 
+        void DetectEnemyHandler()
+        {
+            int hitCount = Physics.OverlapSphereNonAlloc(rigid.position, 5.0f, enemies, enemyLayer);
+
+            if (hitCount <= 0)
+                return;
+
+            //if not focus on any enemy, find target here..
+            for (int i = 0; i < hitCount; ++i)
+            {
+                Debug.Log("Detect enemy : " + enemies[i].gameObject.name);
+            }
+        }
+
         void SubscribeEvent()
         {
+            damageable.OnReceiveDamage += OnReceiveDamage;
             GameController.Instance.OnGameStateChange += OnGameStateChange;
         }
 
         void UnsubscribeEvent()
         {
             GameController.Instance.OnGameStateChange -= OnGameStateChange;
+        }
+
+        void OnReceiveDamage(int value)
+        {
+            //if guard -> remove stamina first..
+            //else -> remove with health
+            health.Remove(value);
         }
 
         void OnGameStateChange(GameState state)
@@ -335,7 +368,7 @@ namespace Souls
         {
             regainStaminaDelay = (Time.time + 1.3f);
             regainStaminaRate = (regainStaminaDelay + 0.5f);
-            stamina.Remove(18);
+            stamina.Remove(12);
         }
 
         public void EndAttackEvent()
@@ -347,6 +380,7 @@ namespace Souls
         public void DoDamage()
         {
             //when attack frame, cast and hit enemy here..
+            //if can get damageable, hit
         }
 
         public void PreventPlayerControl()
