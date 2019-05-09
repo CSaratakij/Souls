@@ -21,13 +21,16 @@ namespace Souls
 
         public void ToggleLockMode()
         {
-            ShowCursor(!Cursor.visible);
+            isCursorVisible = !isCursorVisible;
+            Lock(isCursorVisible);
         }
 
-        public void ShowCursor(bool value)
+        public void Lock(bool value)
         {
-            Cursor.lockState = (value) ? CursorLockMode.None : CursorLockMode.Locked;
-            Cursor.visible = value;
+            isCursorVisible = !value;
+            lockMode = (value) ? CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.visible = isCursorVisible;
+            Cursor.lockState = lockMode;
         }
     }
 }
