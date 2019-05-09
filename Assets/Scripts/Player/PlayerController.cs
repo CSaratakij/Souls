@@ -2,20 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
+
 namespace Souls
 {
     [RequireComponent(typeof(Damageable))]
     public class PlayerController : MonoBehaviour
     {
         [SerializeField]
+        [Range(0, 100)]
+        int attackPoint = 30;
+
+        [SerializeField]
         float moveForce;
 
         [SerializeField]
         float runMultiplier;
-
-        [SerializeField]
-        [Range(0, 100)]
-        int attackPoint = 30;
 
         [SerializeField]
         new CameraController camera;
@@ -66,6 +70,16 @@ namespace Souls
         Collider[] enemies;
 
 
+#if UNITY_EDITOR
+        void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            Vector3 checkPosition = transform.position + (transform.forward * 1.8f);
+            Gizmos.DrawWireSphere(checkPosition, 2.0f);
+            Handles.Label(checkPosition, "Attack range");
+        }
+#endif
+
         void Reset()
         {
             moveForce = 20.0f;
@@ -103,7 +117,7 @@ namespace Souls
         void FixedUpdate()
         {
             MovementHandler();
-            DetectEnemyHandler();
+            HitEnemyHandler();
         }
 
         void OnDestroy()
@@ -203,7 +217,7 @@ namespace Souls
             anim.SetBool("Walk", isWalk);
             anim.SetBool("Run", moveState == MoveState.Run);
 
-            if (Input.GetButtonDown("Fire1") && !stamina.IsEmpty && stamina.Current >= 12)
+            if (Input.GetButtonDown("Fire1") && !stamina.IsEmpty && stamina.Current >= 14)
             {
                 anim.SetTrigger("Slash");
             }
@@ -312,14 +326,18 @@ namespace Souls
             rigid.AddForce(velocity, ForceMode.Force);
         }
 
-        void DetectEnemyHandler()
+        void HitEnemyHandler()
         {
             if (isConfirmAttack)
             {
-                int hitCount = Physics.OverlapSphereNonAlloc(rigid.position, 5.0f, enemies, enemyLayer);
+                Vector3 checkPosition = rigid.position + (transform.forward * 1.8f);
+                int hitCount = Physics.OverlapSphereNonAlloc(checkPosition, 2.0f, enemies, enemyLayer);
 
                 if (hitCount <= 0)
+                {
+                    isConfirmAttack = false;
                     return;
+                }
 
                 //if not focus on any enemy, find target here..
                 for (int i = 0; i < hitCount; ++i)
@@ -380,7 +398,7 @@ namespace Souls
         {
             regainStaminaDelay = (Time.time + 1.3f);
             regainStaminaRate = (regainStaminaDelay + 0.5f);
-            stamina.Remove(12);
+            stamina.Remove(14);
 
             //Test
             isConfirmAttack = true;
