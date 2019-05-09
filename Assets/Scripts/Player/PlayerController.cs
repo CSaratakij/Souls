@@ -14,6 +14,10 @@ namespace Souls
         float runMultiplier;
 
         [SerializeField]
+        [Range(0, 100)]
+        int attackPoint = 30;
+
+        [SerializeField]
         new CameraController camera;
 
         [SerializeField]
@@ -49,6 +53,7 @@ namespace Souls
         bool isAttack = false;
         bool isNeedPlayDead = false;
         bool isExualted = false;
+        bool isConfirmAttack = false;
 
         Damageable damageable;
 
@@ -309,15 +314,22 @@ namespace Souls
 
         void DetectEnemyHandler()
         {
-            int hitCount = Physics.OverlapSphereNonAlloc(rigid.position, 5.0f, enemies, enemyLayer);
-
-            if (hitCount <= 0)
-                return;
-
-            //if not focus on any enemy, find target here..
-            for (int i = 0; i < hitCount; ++i)
+            if (isConfirmAttack)
             {
-                Debug.Log("Detect enemy : " + enemies[i].gameObject.name);
+                int hitCount = Physics.OverlapSphereNonAlloc(rigid.position, 5.0f, enemies, enemyLayer);
+
+                if (hitCount <= 0)
+                    return;
+
+                //if not focus on any enemy, find target here..
+                for (int i = 0; i < hitCount; ++i)
+                {
+                    Debug.Log("Detect enemy : " + enemies[i].gameObject.name);
+                    var damageable = enemies[i].gameObject.GetComponent<Damageable>();
+                    damageable?.ReceiveDamage(attackPoint);
+                }
+
+                isConfirmAttack = false;
             }
         }
 
@@ -369,6 +381,9 @@ namespace Souls
             regainStaminaDelay = (Time.time + 1.3f);
             regainStaminaRate = (regainStaminaDelay + 0.5f);
             stamina.Remove(12);
+
+            //Test
+            isConfirmAttack = true;
         }
 
         public void EndAttackEvent()

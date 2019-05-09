@@ -77,14 +77,6 @@ namespace Souls
             currentDistance = maximumDistance;
         }
 
-        //Test
-        void Start()
-        {
-            Application.targetFrameRate = 60;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-
         void Update()
         {
             InputHandler();
