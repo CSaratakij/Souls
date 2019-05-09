@@ -456,9 +456,6 @@ namespace Souls
             regainStaminaDelay = (Time.time + 1.3f);
             regainStaminaRate = (regainStaminaDelay + 0.5f);
             stamina.Remove(14);
-
-            //Test
-            isConfirmAttack = true;
         }
 
         public void EndAttackEvent()
@@ -469,8 +466,7 @@ namespace Souls
 
         public void DoDamage()
         {
-            //when attack frame, cast and hit enemy here..
-            //if can get damageable, hit
+            isConfirmAttack = true;
         }
 
         public void PreventPlayerControl()
