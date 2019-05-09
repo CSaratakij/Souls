@@ -42,7 +42,7 @@ namespace Souls
             damageable.OnReceiveDamage -= OnReceiveDamage;
         }
 
-        void OnReceiveDamage(int value)
+        void OnReceiveDamage(int value, Transform transform)
         {
             health.Remove(value);
 

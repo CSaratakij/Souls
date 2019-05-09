@@ -13,7 +13,7 @@ namespace Souls
     {
         [SerializeField]
         [Range(0, 100)]
-        int attackPoint = 30;
+        int attackPoint = 25;
 
         [SerializeField]
         float moveForce;
@@ -83,7 +83,7 @@ namespace Souls
 
         void Reset()
         {
-            moveForce = 20.0f;
+            moveForce = 22.0f;
             runMultiplier = 1.8f;
             anim = GetComponent<Animator>();
             camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
@@ -240,7 +240,7 @@ namespace Souls
 
             if (Input.GetKeyDown(KeyCode.F2))
             {
-                OnReceiveDamage(15);
+                OnReceiveDamage(15, transform);
             }
 #endif
 
@@ -362,7 +362,7 @@ namespace Souls
                 {
                     Debug.Log("Detect enemy : " + enemies[i].gameObject.name);
                     var damageable = enemies[i].gameObject.GetComponent<Damageable>();
-                    damageable?.ReceiveDamage(attackPoint);
+                    damageable?.ReceiveDamage(attackPoint, transform);
                 }
 
                 isConfirmAttack = false;
@@ -381,11 +381,17 @@ namespace Souls
             GameController.Instance.OnGameStateChange -= OnGameStateChange;
         }
 
-        void OnReceiveDamage(int value)
+        void OnReceiveDamage(int value, Transform other)
         {
-            if (isGuard)
+            Vector3 forward = transform.forward;
+            Vector3 toOther = (other.position - transform.position).normalized;
+
+            float result = Vector3.Dot(forward, toOther);
+            bool isReceiveAttackOnTheBack = (result < 0.0f);
+
+            if (isGuard && !isReceiveAttackOnTheBack)
             {
-                int currentStamina = stamina.Current;
+                int currentStamina = (int)(stamina.Current * 0.5f);
                 int totalHit = (currentStamina - value);
 
                 if (totalHit < 0)

@@ -7,16 +7,16 @@ namespace Souls
 {
     public class Damageable : MonoBehaviour
     {
-        public event Action<int> OnReceiveDamage;
+        public event Action<int, Transform> OnReceiveDamage;
 
         void OnDestroy()
         {
             OnReceiveDamage = null;
         }
 
-        public void ReceiveDamage(int value)
+        public void ReceiveDamage(int value, Transform transform)
         {
-            OnReceiveDamage?.Invoke(value);
+            OnReceiveDamage?.Invoke(value, transform);
         }
     }
 }
