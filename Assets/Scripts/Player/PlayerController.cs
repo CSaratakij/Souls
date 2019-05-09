@@ -268,7 +268,7 @@ namespace Souls
         void RotateHandler()
         {
             //Manual rotate if there is no specific look at target
-            if (!isInputAble || isUseOnlyRootMotionMovement)
+            if (!isInputAble || isUseOnlyRootMotionMovement || isGuard)
             {
                 camera.ForceRotateTarget(false);
                 camera.InvertForwardAxis(false);
@@ -300,7 +300,7 @@ namespace Souls
 
         void MovementHandler()
         {
-            if (!isMoveAble)
+            if (!isMoveAble || isGuard)
             {
                 velocity = Vector3.zero;
                 rigid.velocity = velocity;
