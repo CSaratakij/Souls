@@ -58,6 +58,7 @@ namespace Souls
         bool isNeedPlayDead = false;
         bool isExualted = false;
         bool isConfirmAttack = false;
+        bool isGuard = false;
 
         Damageable damageable;
 
@@ -147,6 +148,8 @@ namespace Souls
             lastNonZeroInputDir.x = (input.x > 0.0f || input.x < 0.0f) ? input.x : lastNonZeroInputDir.x;
             lastNonZeroInputDir.y = (input.y > 0.0f || input.y < 0.0f) ? input.y : lastNonZeroInputDir.y;
 
+            isGuard = Input.GetKey(KeyCode.Q);
+
             if (input == Vector2.zero)
             {
                 moveState = MoveState.Idle;
@@ -216,6 +219,7 @@ namespace Souls
 
             anim.SetBool("Walk", isWalk);
             anim.SetBool("Run", moveState == MoveState.Run);
+            anim.SetBool("Block", isGuard);
 
             if (Input.GetButtonDown("Fire1") && !stamina.IsEmpty && stamina.Current >= 14)
             {
@@ -227,7 +231,13 @@ namespace Souls
             {
                 health.Clear();
             }
+
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+                OnReceiveDamage(15);
+            }
 #endif
+
             if (health.IsEmpty && !isNeedPlayDead)
             {
                 isNeedPlayDead = true;
@@ -359,14 +369,41 @@ namespace Souls
 
         void UnsubscribeEvent()
         {
+            damageable.OnReceiveDamage -= OnReceiveDamage;
             GameController.Instance.OnGameStateChange -= OnGameStateChange;
         }
 
         void OnReceiveDamage(int value)
         {
-            //if guard -> remove stamina first..
-            //else -> remove with health
-            health.Remove(value);
+            if (isGuard)
+            {
+                int currentStamina = stamina.Current;
+                int totalHit = (currentStamina - value);
+
+                if (totalHit < 0)
+                {
+                    stamina.Clear();
+                    health.Remove(Mathf.Abs(totalHit));
+
+                    if (!health.IsEmpty)
+                    {
+                        anim.SetTrigger("Hit");
+                    }
+                }
+                else
+                {
+                    stamina.Remove(value);
+                }
+            }
+            else
+            {
+                health.Remove(value);
+
+                if (!health.IsEmpty)
+                {
+                    anim.SetTrigger("Hit");
+                }
+            }
         }
 
         void OnGameStateChange(GameState state)
