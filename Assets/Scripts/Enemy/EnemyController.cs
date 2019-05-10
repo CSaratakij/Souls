@@ -83,10 +83,19 @@ namespace Souls
                 currentState = State.Dead;
 
                 anim.applyRootMotion = true;
-                anim.SetTrigger("Dead");
-
                 rigid.isKinematic = true;
                 collider.enabled = false;
+
+                bool isDyingBackward = (Physics.Linecast(transform.position, transform.position + (transform.forward * 5.0f)));
+
+                if (isDyingBackward)
+                {
+                    anim.SetTrigger("DeadBackward");
+                }
+                else
+                {
+                    anim.SetTrigger("Dead");
+                }
 
                 Debug.Log("Dead...");
             }
