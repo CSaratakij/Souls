@@ -34,6 +34,9 @@ namespace Souls
         Stat stamina;
 
         [SerializeField]
+        Stat potion;
+
+        [SerializeField]
         LayerMask enemyLayer;
 
         enum MoveState
@@ -149,6 +152,14 @@ namespace Souls
             lastNonZeroInputDir.y = (input.y > 0.0f || input.y < 0.0f) ? input.y : lastNonZeroInputDir.y;
 
             isGuard = health.IsEmpty ? false : Input.GetKey(KeyCode.Q);
+
+            bool isCanUsePotion = (Input.GetButtonDown("UsePotion") && !potion.IsEmpty && health.Current < health.Max);
+
+            if (isCanUsePotion)
+            {
+                potion.Remove(1);
+                health.FullRestore();
+            }
 
             if (input == Vector2.zero)
             {
