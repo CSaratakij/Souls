@@ -4,7 +4,8 @@
     {
         None,
         Start,
-        Over
+        Over,
+        Reset
     }
 }
 

@@ -58,6 +58,11 @@ namespace Souls
             ChangeState(GameState.Start);
         }
 
+        public void GameReset()
+        {
+            ChangeState(GameState.Reset);
+        }
+
         public void GameOver()
         {
             ChangeState(GameState.Over);
