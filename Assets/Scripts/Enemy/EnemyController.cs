@@ -113,6 +113,7 @@ namespace Souls
         void Update()
         {
             StateHandler();
+            RotateHandler();
         }
 
         void FixedUpdate()
@@ -315,6 +316,16 @@ namespace Souls
 
                 default:
                     break;
+            }
+        }
+
+        void RotateHandler()
+        {
+            if (currentState == State.Attack)
+            {
+                Vector3 lookDirection = (target.position - transform.position).normalized;
+                Quaternion targetRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.025f);
             }
         }
 
