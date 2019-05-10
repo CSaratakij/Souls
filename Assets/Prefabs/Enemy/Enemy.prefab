@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5530586335063758056}
   - component: {fileID: 5530586335063758057}
   - component: {fileID: 5530586335063758058}
+  - component: {fileID: 1803842484}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -63,7 +64,7 @@ Rigidbody:
   m_Mass: 2
   m_Drag: 2
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -113,6 +114,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: {fileID: 5530586335063758057}
   stamina: {fileID: 5530586335063758058}
+  points:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &5530586335063758057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,6 +146,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   current: 100
   max: 100
+--- !u!195 &1803842484
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5530586335063758061}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 2
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &5953285490767452104
 PrefabInstance:
   m_ObjectHideFlags: 0
