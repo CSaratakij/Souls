@@ -816,9 +816,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f44c2e0317893d8ab8929b33e365353c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackPoint: 22
+  attackRate: 0.8
   health: {fileID: 1157094624}
   stamina: {fileID: 1157094623}
   points: []
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!136 &1157094627
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1315,9 +1320,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f44c2e0317893d8ab8929b33e365353c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackPoint: 22
+  attackRate: 0.8
   health: {fileID: 1850077802}
   stamina: {fileID: 1850077805}
   points: []
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1850077805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1832,22 +1842,6 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 534669906}
-    - target: {fileID: 570016927, guid: 10375ba12d52aa8feb8e52f6569a4f2d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5470935
-      objectReference: {fileID: 0}
-    - target: {fileID: 570016927, guid: 10375ba12d52aa8feb8e52f6569a4f2d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.076
-      objectReference: {fileID: 0}
-    - target: {fileID: 570016927, guid: 10375ba12d52aa8feb8e52f6569a4f2d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 570016927, guid: 10375ba12d52aa8feb8e52f6569a4f2d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10375ba12d52aa8feb8e52f6569a4f2d, type: 3}
 --- !u!1001 &5530586334992921535

@@ -395,7 +395,7 @@ namespace Souls
 
             if (isGuard && !isReceiveAttackOnTheBack)
             {
-                int currentStamina = (int)(stamina.Current * 0.5f);
+                int currentStamina = (int)(stamina.Current * 0.65f);
                 int totalHit = (currentStamina - value);
 
                 if (totalHit < 0)

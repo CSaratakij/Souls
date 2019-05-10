@@ -14,6 +14,12 @@ namespace Souls
     public class EnemyController : MonoBehaviour
     {
         [SerializeField]
+        int attackPoint = 22;
+
+        [SerializeField]
+        float attackRate = 0.8f;
+
+        [SerializeField]
         Stat health;
 
         [SerializeField]
@@ -21,6 +27,9 @@ namespace Souls
 
         [SerializeField]
         Transform[] points;
+
+        [SerializeField]
+        LayerMask enemyLayer;
 
         enum State
         {
@@ -32,10 +41,18 @@ namespace Souls
         }
 
         int currentPointIndex;
+
         float nextPointDelay;
+        float nextAttackDelay;
 
         bool previousReach;
         bool isFoundTarget;
+        bool isNeedAttack;
+        bool isConfirmAttack;
+        bool isRestFromAttack;
+        bool isAllowChangeState = true;
+
+        Collider[] enemies;
 
         Animator anim;
         Collider collider;
@@ -52,6 +69,12 @@ namespace Souls
 
 #if UNITY_EDITOR
         void OnDrawGizmos()
+        {
+            DrawPoints();
+            DrawAttackArea();
+        }
+
+        void DrawPoints()
         {
             Gizmos.color = Color.red;
 
@@ -71,6 +94,14 @@ namespace Souls
                 Gizmos.DrawLine(points[i].position, points[i + 1].position);
             }
         }
+
+        void DrawAttackArea()
+        {
+            Gizmos.color = Color.red;
+            Vector3 checkPosition = transform.position + (transform.forward * 1.4f);
+            Gizmos.DrawWireSphere(checkPosition + Vector3.up, 1.5f);
+            Handles.Label(checkPosition, "Attack range");
+        }
 #endif
 
         void Awake()
@@ -86,7 +117,7 @@ namespace Souls
 
         void FixedUpdate()
         {
-            /* MovementHandler(); */
+            HitEnemyHandler();
         }
 
         void OnDestroy()
@@ -102,6 +133,8 @@ namespace Souls
             damageable = GetComponent<Damageable>();
             rigid = GetComponent<Rigidbody>();
             navMeshAgent = GetComponent<NavMeshAgent>();
+
+            enemies = new Collider[5];
 
             if (points.Length > 1)
             {
@@ -225,7 +258,9 @@ namespace Souls
                     else
                     {
                         anim.SetBool("Run", false);
+
                         currentState = State.Attack;
+                        nextAttackDelay = Time.time + (attackRate * 0.5f);
                     }
                 }
                 break;
@@ -241,12 +276,82 @@ namespace Souls
             {
                 case State.Attack:
                 {
+                    if (health.IsEmpty)
+                    {
+                        return;
+                    }
+
                     Debug.Log("Attack State..");
+
+                    Vector3 currentPoint = transform.position;
+                    Vector3 relativeVector = (target.position - currentPoint);
+
+                    bool isTargetFarFromAttackRange = (relativeVector.magnitude >= 3.5f);
+
+                    if (isTargetFarFromAttackRange)
+                    {
+                        isFoundTarget = true;
+
+                        isConfirmAttack = false;
+                        isNeedAttack = false;
+                        nextAttackDelay = Time.time + attackRate;
+
+                        navMeshAgent.isStopped = false;
+                        navMeshAgent.acceleration = 6.0f;
+
+                        currentState = State.RunToTarget;
+                    }
+                    else
+                    {
+                        if (Time.time > nextAttackDelay && !isNeedAttack)
+                        {
+                            isNeedAttack = true;
+                            navMeshAgent.isStopped = true;
+                            anim.SetTrigger("Attack");
+                        }
+                    }
                 }
                 break;
 
                 default:
                     break;
+            }
+        }
+
+        void HitEnemyHandler()
+        {
+            if (health.IsEmpty)
+            {
+                return;
+            }
+
+            if (isConfirmAttack)
+            {
+                Vector3 checkPosition = rigid.position + (transform.forward * 1.4f);
+                int hitCount = Physics.OverlapSphereNonAlloc(checkPosition + Vector3.up, 1.5f, enemies, enemyLayer);
+
+                if (hitCount <= 0)
+                {
+                    isConfirmAttack = false;
+                    isNeedAttack = false;
+                    navMeshAgent.isStopped = false;
+                    nextAttackDelay = Time.time + attackRate;
+                    return;
+                }
+
+                Debug.Log("Check");
+
+                for (int i = 0; i < hitCount; ++i)
+                {
+                    Debug.Log("Detect enemy : " + enemies[i].gameObject.name);
+                    var damageable = enemies[i].gameObject.GetComponent<Damageable>();
+                    damageable?.ReceiveDamage(attackPoint, transform);
+                }
+
+                isConfirmAttack = false;
+                isNeedAttack = false;
+                navMeshAgent.isStopped = false;
+                nextAttackDelay = Time.time + attackRate;
             }
         }
 
@@ -308,6 +413,28 @@ namespace Souls
                 isFoundTarget = true;
                 currentState = State.RunToTarget;
             }
+
+            isRestFromAttack = true;
+        }
+
+        public void DoDamage()
+        {
+            isConfirmAttack = true;
+        }
+
+        public void PreventChangeState()
+        {
+            isAllowChangeState = false;
+        }
+
+        public void OnAttackEnd()
+        {
+            isRestFromAttack = true;
+        }
+
+        public void AllowChangeState()
+        {
+            isAllowChangeState = true;
         }
     }
 }
