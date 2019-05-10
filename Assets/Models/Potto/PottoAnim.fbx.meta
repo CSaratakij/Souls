@@ -1,33 +1,83 @@
 fileFormatVersion: 2
 guid: e2a2ff071b6cea342bdf8022d28eb8a9
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: joint1
-    100002: joint2
-    100004: joint3
-    100006: joint4
-    100008: joint5
-    100010: joint6
-    100012: joint6 1
-    100014: joint9
-    100016: polySurface2
-    100018: //RootNode
-    400000: joint1
-    400002: joint2
-    400004: joint3
-    400006: joint4
-    400008: joint5
-    400010: joint6
-    400012: joint6 1
-    400014: joint9
-    400016: polySurface2
-    400018: //RootNode
-    2100000: lambert1
-    4300000: polySurface2
-    7400000: Take 001
-    9500000: //RootNode
-    13700000: polySurface2
+  serializedVersion: 25
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: joint1
+  - first:
+      1: 100002
+    second: joint2
+  - first:
+      1: 100004
+    second: joint3
+  - first:
+      1: 100006
+    second: joint4
+  - first:
+      1: 100008
+    second: joint5
+  - first:
+      1: 100010
+    second: joint6
+  - first:
+      1: 100012
+    second: joint6 1
+  - first:
+      1: 100014
+    second: joint9
+  - first:
+      1: 100016
+    second: polySurface2
+  - first:
+      1: 100018
+    second: //RootNode
+  - first:
+      4: 400000
+    second: joint1
+  - first:
+      4: 400002
+    second: joint2
+  - first:
+      4: 400004
+    second: joint3
+  - first:
+      4: 400006
+    second: joint4
+  - first:
+      4: 400008
+    second: joint5
+  - first:
+      4: 400010
+    second: joint6
+  - first:
+      4: 400012
+    second: joint6 1
+  - first:
+      4: 400014
+    second: joint9
+  - first:
+      4: 400016
+    second: polySurface2
+  - first:
+      4: 400018
+    second: //RootNode
+  - first:
+      21: 2100000
+    second: lambert1
+  - first:
+      43: 4300000
+    second: polySurface2
+  - first:
+      74: 7400000
+    second: Take 001
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: polySurface2
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -53,7 +103,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -64,6 +114,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Take 001
       takeName: Take 001
+      internalID: 7400000
       firstFrame: 1
       lastFrame: 20
       wrapMode: 0
@@ -98,23 +149,24 @@ ModelImporter:
     useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -123,12 +175,63 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: PottoAnim(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface2
+      parentName: PottoAnim(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: joint1
+      parentName: PottoAnim(Clone)
+      position: {x: 0.01, y: 0, z: 0}
+      rotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1}
+    - name: joint2
+      parentName: joint1
+      position: {x: -0.012605783, y: 2.799046e-18, z: 0}
+      rotation: {x: 9.835882e-11, y: 6.938893e-18, z: -0, w: 1}
+      scale: {x: 0.9999999, y: 0.9999999, z: 0.9999999}
+    - name: joint4
+      parentName: joint2
+      position: {x: -0.02032504, y: 4.5130656e-18, z: 0}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000006, y: 1.0000007, z: 0.9999999}
+    - name: joint3
+      parentName: joint4
+      position: {x: -0.010792783, y: 2.3964793e-18, z: 0}
+      rotation: {x: 0.0000000018284916, y: -0.0000000018284916, z: 0.7071068, w: 0.7071068}
+      scale: {x: 1.0000002, y: 1.0000001, z: 0.9999999}
+    - name: joint5
+      parentName: joint4
+      position: {x: -0.004511453, y: -0.009950365, z: 0.003146925}
+      rotation: {x: -0.14164856, y: -0.23845822, z: 0.7601693, w: 0.58755094}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: joint6
+      parentName: joint5
+      position: {x: -0.010345999, y: 2.7755574e-18, z: 0}
+      rotation: {x: 0.000000014901159, y: -0.000000029802319, z: -0.79687136, w: 0.6041491}
+      scale: {x: 1.0000008, y: 1.000001, z: 1.0000002}
+    - name: joint9
+      parentName: joint4
+      position: {x: -0.004511477, y: 0.00995037, z: 0.00314692}
+      rotation: {x: 0.76016927, y: 0.5875508, z: 0.14164855, w: 0.2384583}
+      scale: {x: 1.0000001, y: 1.0000006, z: 1.000001}
+    - name: joint6 1
+      parentName: joint9
+      position: {x: 0.01034597, y: -0.000000010591429, z: -0.000000005066099}
+      rotation: {x: -0.00000004470348, y: 0.00000004470348, z: -0.7968713, w: 0.60414904}
+      scale: {x: 0.99999964, y: 0.99999964, z: 0.999999}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -136,9 +239,10 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2

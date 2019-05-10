@@ -20,6 +20,9 @@ namespace Souls
         float attackRate = 0.8f;
 
         [SerializeField]
+        float detectDistance = 5.5f;
+
+        [SerializeField]
         Stat health;
 
         [SerializeField]
@@ -59,6 +62,8 @@ namespace Souls
 
         Transform target;
         Transform other;
+
+        Vector3 origin;
 
         Damageable damageable;
         Rigidbody rigid;
@@ -147,6 +152,8 @@ namespace Souls
                 currentState = State.RunAround;
                 nextPointDelay = Time.time + 3.0f;
             }
+
+            origin = transform.position;
         }
 
         void StateHandler()
@@ -164,7 +171,7 @@ namespace Souls
 
             Vector3 relativeVector = (target.position - transform.position);
 
-            if (relativeVector.magnitude >= 5.5f)
+            if (relativeVector.magnitude >= detectDistance)
                 return;
 
             Vector3 forward = transform.forward;
@@ -186,7 +193,7 @@ namespace Souls
             {
                 case State.RunAround:
                 {
-                    Vector3 currentPoint = points[currentPointIndex].position;
+                    Vector3 currentPoint = points.Length > 0 ? points[currentPointIndex].position : origin;
                     Vector3 relativeVector = (currentPoint - rigid.position);
 
                     bool isReach = (relativeVector.magnitude <= 0.25f);
@@ -206,7 +213,7 @@ namespace Souls
                         if (previousIndex != currentPointIndex)
                         {
                             anim.SetBool("Run", true);
-                            navMeshAgent.SetDestination(points[currentPointIndex].position);
+                            navMeshAgent.SetDestination(points.Length > 0 ? points[currentPointIndex].position : origin);
                         }
 
                         previousReach = false;
@@ -241,7 +248,7 @@ namespace Souls
 
                             navMeshAgent.acceleration = 3.5f;
                             currentPointIndex = 0;
-                            navMeshAgent.SetDestination(points[0].position);
+                            navMeshAgent.SetDestination(points.Length > 0 ? points[0].position : origin);
 
                             nextPointDelay = Time.time + 3.0f;
                             isFoundTarget = false;
