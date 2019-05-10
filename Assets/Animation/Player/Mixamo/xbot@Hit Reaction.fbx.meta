@@ -66,7 +66,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.8717949
+      - time: 0.6206533
         functionName: RegainPlayerMovement
         data: 
         objectReferenceParameter: {instanceID: 0}
