@@ -420,6 +420,7 @@ namespace Souls
                 {
                     anim.SetTrigger("Hit");
                     this.other = other;
+                    nextAttackDelay = Time.time + (attackRate * 0.8f);
                 }
             }
         }
