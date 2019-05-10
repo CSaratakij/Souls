@@ -195,16 +195,35 @@ namespace Souls
                     Vector3 relativeVector = (target.position - currentPoint);
 
                     bool isReach = (relativeVector.magnitude <= 3.0f);
+                    bool isTargetTooFarAway = (relativeVector.magnitude >= 35.0f);
+
+                    Debug.Log(isTargetTooFarAway);
 
                     if (!isReach)
                     {
-                        anim.SetBool("Run", true);
-                        navMeshAgent.SetDestination(target.position);
+                        if (isTargetTooFarAway)
+                        {
+                            Debug.Log("Too far aways");
+
+                            navMeshAgent.acceleration = 3.5f;
+                            currentPointIndex = 0;
+                            navMeshAgent.SetDestination(points[0].position);
+
+                            nextPointDelay = Time.time + 3.0f;
+                            isFoundTarget = false;
+
+                            currentState = State.RunAround;
+                        }
+                        else
+                        {
+                            Debug.Log("Not far aways");
+
+                            anim.SetBool("Run", true);
+                            navMeshAgent.SetDestination(target.position);
+                        }
                     }
                     else
                     {
-                        //Todo
-                        //change to attack state here..
                         anim.SetBool("Run", false);
                         currentState = State.Attack;
                     }
