@@ -15,6 +15,7 @@ namespace Souls
 
         void Awake()
         {
+            Initialize();
             SubscribeEvent();
         }
 
@@ -26,6 +27,11 @@ namespace Souls
         void OnDestroy()
         {
             UnsubscribeEvent();
+        }
+
+        void Initialize()
+        {
+            slider.maxValue = stat.Max;
         }
 
         void UpdateUI(int value)
