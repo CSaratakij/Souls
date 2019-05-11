@@ -406,8 +406,9 @@ namespace Souls
 
             if (isGuard && !isReceiveAttackOnTheBack)
             {
-                int currentStamina = (int)(stamina.Current * 0.65f);
-                int totalHit = (currentStamina - value);
+                int currentStamina = stamina.Current;
+                int damage = (int)(value * 0.7f);
+                int totalHit = (currentStamina - damage);
 
                 if (totalHit < 0)
                 {
@@ -427,7 +428,7 @@ namespace Souls
                     regainStaminaDelay = (Time.time + 0.5f);
                     regainStaminaRate = (regainStaminaDelay + 0.25f);
 
-                    stamina.Remove(value);
+                    stamina.Remove(damage);
                 }
             }
             else

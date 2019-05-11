@@ -59,8 +59,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
+      - time: 0.063725494
         functionName: RegainPlayerControl
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.11440678
+        functionName: RegainPlayerMovement
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
